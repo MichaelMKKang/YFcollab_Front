@@ -19,7 +19,7 @@ else:
             password='Polarbear5684',
             host='localhost',
             port='5432',
-            database='fastapi-product',
+            database='fastapi-products',
         )
 
 engine = create_engine(

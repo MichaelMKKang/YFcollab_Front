@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 import models
@@ -30,5 +31,5 @@ def read_songs(db: Session = Depends(get_db)):
     songs = db.query(Song).all()
     resp = {}
     for i, value in enumerate(songs):
-        resp[i] = SongModel(id=value.id, title=value.title, artist=value.artist, release_date=value.release_date)
-    return json.loads(resp)
+        resp[i] = SongModel(id=value.id, title=value.title, artist=value.artist, release_date=str(value.release_date))
+    return resp
