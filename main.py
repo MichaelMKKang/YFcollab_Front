@@ -4,6 +4,8 @@ from sqlalchemy.orm import Session
 import models
 from database import engine, SessionLocal
 from models import Song
+from modelClass import SongModel
+import json
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -25,4 +27,8 @@ def read_root():
 
 @app.get('/songs/')
 def read_songs(db: Session = Depends(get_db)):
-    return db.query(Song).all()
+    songs = db.query(Song).all()
+    resp = {}
+    for i, value in enumerate(songs):
+        resp[i] = SongModel(id=value.id, title=value.title, artist=value.artist, release_date=value.release_date)
+    return json.loads(resp)
