@@ -8,8 +8,10 @@ async function getUsers() {
             headers: {
                 'Content-Type': 'application/json',
             }
-        });
-        return await res.json();
+        })
+        .then(res => res.json());
+        console.log(res)
+        return await res;
     } catch (error) {
         console.log(error);
     }
@@ -18,7 +20,7 @@ async function getUsers() {
 async function renderUsers() {
     let users = await getUsers();
     let html = '';
-    users.forEach(user => {
+    for (const [key,user] of Object.entries(users)){
         let htmlSegment = `<div class="user">
                             <h2>${user.id}</h2>
                             <h2>${user.title} ${user.artist}</h2>
@@ -26,7 +28,7 @@ async function renderUsers() {
                         </div>`;
 
         html += htmlSegment;
-    });
+    };
 
     let container = document.querySelector('.container');
     container.innerHTML = html;
