@@ -3,7 +3,7 @@ async function getUsers() {
     try {
         let res = await fetch(url, {
             method: "GET", 
-            body: JSON.stringify(data),
+        //body: JSON.stringify(data),
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
